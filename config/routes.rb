@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+    resources :categories
+    # Shorthand for
+    # get '/categories', to: 'categories#index'
+    # get '/categories/:id', to: 'categories#show'
+    # post '/categories', to: 'categories#create'
+    # patch '/categories/:id', to: 'categories#update'
+    # delete '/categories/:id', to: 'categories#destroy'
 end
