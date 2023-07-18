@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Categories", type: :request do
-  # GET #index
+  # GET index
   describe "GET /categories" do
     it "returns a list of categories" do
       FactoryBot.create_list(:category, 3)
@@ -13,7 +13,7 @@ RSpec.describe "Categories", type: :request do
     end
   end
 
-  # GET #show
+  # GET show
   describe "GET /categories/:id" do
     it "returns a specific category" do
       category = FactoryBot.create(:category)
@@ -26,7 +26,7 @@ RSpec.describe "Categories", type: :request do
     end
   end
 
-  # POST #create
+  # POST create
   describe "POST /categories" do
     it "creates a new category" do
       category_params = FactoryBot.attributes_for(:category)
@@ -52,7 +52,7 @@ RSpec.describe "Categories", type: :request do
     end
   end
 
-  # PATCH #update
+  # PATCH update
   describe "PATCH /categories/:id" do
     it "updates an existing category" do
       category = FactoryBot.create(:category)
@@ -64,9 +64,7 @@ RSpec.describe "Categories", type: :request do
       updated_category = JSON.parse(response.body)
       expect(updated_category["name"]).to eq("Updated Category")
     end
-  end
 
-  describe "PATCH /categories/:id" do
     it "does not update category name because it's already taken" do
       category1 = FactoryBot.create(:category, name: "Category 1")
       category2 = FactoryBot.create(:category, name: "Category 2")
@@ -80,7 +78,7 @@ RSpec.describe "Categories", type: :request do
     end
   end
 
-  # DELETE #destroy
+  # DELETE destroy
   describe "DELETE /categories/:id" do
     it "deletes an existing category" do
       category = FactoryBot.create(:category)
