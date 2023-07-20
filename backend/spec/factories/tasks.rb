@@ -3,6 +3,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Task #{n}" }
     sequence(:description) { |n| "Description #{n}" }
     category
+    user
 
     trait :without_name do
       name { nil }
