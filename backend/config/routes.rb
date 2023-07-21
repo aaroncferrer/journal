@@ -4,7 +4,7 @@ Rails.application.routes.draw do
         resources :tasks
     end
 
-    post '/signup', to: 'auth#create'
+    post '/signup', to: 'auth#signup'
     post '/login', to: 'auth#login'
 
     # Categories routes

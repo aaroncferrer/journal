@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Category, type: :model do
     before(:each) do
-        @user = User.create(email: "test@example.com", password: "password")
+        @user = User.create(first_name: "John", last_name: "Doe", email: "test@example.com", password: "password")
     end
 
     it "saves a valid category with a name and description" do

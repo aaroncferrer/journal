@@ -3,10 +3,10 @@ require 'jwt_auth'
 class AuthController < ApplicationController
     skip_before_action :check_auth
 
-  def create
+  def signup
     user = User.new(user_params)
     if user.save
-      render json: { message: 'User created successfully' }, status: :created
+      render json: user, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -25,6 +25,7 @@ class AuthController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
+
 end
