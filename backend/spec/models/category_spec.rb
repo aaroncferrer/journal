@@ -1,24 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
+    before(:each) do
+        @user = User.create(first_name: "John", last_name: "Doe", email: "test@example.com", password: "password")
+    end
+
     it "saves a valid category with a name and description" do
-        category = Category.new(name: "Test Category", description: "Test Description")
+        category = Category.new(name: "Test Category", description: "Test Description", user: @user)
         expect(category.save).to be true
     end
 
     it "does not save a category without a name" do
-        category = Category.new(description: "Test Description")
+        category = Category.new(description: "Test Description", user: @user)
         expect(category.save).to be false
     end
 
     it "does not save a category without a description" do
-        category = Category.new(name: "Test Category")
+        category = Category.new(name: "Test Category", user: @user)
         expect(category.save).to be false
     end
 
     it "returns all categories" do
-        category1 = Category.create(name: "Category 1", description: "Description 1")
-        category2 = Category.create(name: "Category 2", description: "Description 2")
+        category1 = Category.create(name: "Category 1", description: "Description 1", user: @user)
+        category2 = Category.create(name: "Category 2", description: "Description 2", user: @user)
 
         categories = Category.all
 
@@ -44,10 +48,10 @@ RSpec.describe Category, type: :model do
     end
 
     it "deletes associated tasks when the category is deleted" do
-        category = Category.create(name: "Test Category", description: "Test Description")
-        task1 = category.tasks.create(name: "Task 1", description: "Task 1 Description")
-        task2 = category.tasks.create(name: "Task 2", description: "Task 2 Description")
-        task3 = category.tasks.create(name: "Task 3", description: "Task 3 Description")
+        category = Category.create(name: "Test Category", description: "Test Description", user: @user)
+        task1 = category.tasks.create(name: "Task 1", description: "Task 1 Description", user: @user)
+        task2 = category.tasks.create(name: "Task 2", description: "Task 2 Description", user: @user)
+        task3 = category.tasks.create(name: "Task 3", description: "Task 3 Description", user: @user)
 
         expect {
             category.destroy

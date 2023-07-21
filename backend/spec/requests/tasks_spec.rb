@@ -1,15 +1,18 @@
 require 'rails_helper'
+require 'jwt_auth'
 
 RSpec.describe "Tasks", type: :request do
   before(:each) do
-    @category = FactoryBot.create(:category)
+    @user = FactoryBot.create(:user)
+    @token = JwtAuth.encode({ user_id: @user.id })
+    @category = FactoryBot.create(:category, user: @user)
   end
 
   # GET index
   describe "GET /categories/:category_id/tasks" do
     it "returns a list of tasks" do
       FactoryBot.create_list(:task, 3, category: @category )
-      get "/categories/#{@category.id}/tasks"
+      get "/categories/#{@category.id}/tasks", headers: { "Authorization" => "Bearer #{@token}" }
 
       expect(response).to have_http_status(200)
       tasks = JSON.parse(response.body)
@@ -21,7 +24,7 @@ RSpec.describe "Tasks", type: :request do
   describe "GET /categories/:category_id/tasks/:id" do
     it "returns a specific task" do
       task = FactoryBot.create(:task, category: @category)
-      get "/categories/#{@category.id}/tasks/#{task.id}"
+      get "/categories/#{@category.id}/tasks/#{task.id}", headers: { "Authorization" => "Bearer #{@token}" }
 
       expect(response).to have_http_status(200)
       task_response = JSON.parse(response.body)
@@ -34,7 +37,7 @@ RSpec.describe "Tasks", type: :request do
     it "creates a new task" do
       task_params = FactoryBot.attributes_for(:task)
 
-      post "/categories/#{@category.id}/tasks", params: { task: task_params }
+      post "/categories/#{@category.id}/tasks", params: { task: task_params }, headers: { "Authorization" => "Bearer #{@token}" }
 
       expect(response).to have_http_status(201)
       new_task = JSON.parse(response.body)
@@ -45,11 +48,11 @@ RSpec.describe "Tasks", type: :request do
       existing_task = FactoryBot.create(:task, name: "Existing task", category: @category)
       task_params = FactoryBot.attributes_for(:task, name: "Existing task")
 
-      post "/categories/#{@category.id}/tasks", params: { task: task_params }
+      post "/categories/#{@category.id}/tasks", params: { task: task_params }, headers: { "Authorization" => "Bearer #{@token}" }
 
       expect(response).to have_http_status(422)
       invalid_task = JSON.parse(response.body)
-      expect(invalid_task["name"]).to include("has already been taken")
+      expect(invalid_task["errors"]).to include("Name has already been taken")
     end
   end
 
@@ -59,7 +62,7 @@ RSpec.describe "Tasks", type: :request do
       task = FactoryBot.create(:task, category: @category)
       task_params = FactoryBot.attributes_for(:task, name: "Updated Task")
 
-      patch "/categories/#{@category.id}/tasks/#{task.id}", params: { task: task_params }
+      patch "/categories/#{@category.id}/tasks/#{task.id}", params: { task: task_params }, headers: { "Authorization" => "Bearer #{@token}" }
 
       expect(response).to have_http_status(200)
       updated_task = JSON.parse(response.body)
@@ -71,11 +74,11 @@ RSpec.describe "Tasks", type: :request do
       task2 = FactoryBot.create(:task, name: "Task 2", category: @category)
       task_params = FactoryBot.attributes_for(:task, name: "Task 1")
 
-      patch "/categories/#{@category.id}/tasks/#{task2.id}", params: { task: task_params }
+      patch "/categories/#{@category.id}/tasks/#{task2.id}", params: { task: task_params }, headers: { "Authorization" => "Bearer #{@token}" }
 
       expect(response).to have_http_status(422)
       invalid_task = JSON.parse(response.body)
-      expect(invalid_task["name"]).to include("has already been taken")
+      expect(invalid_task["errors"]).to include("Name has already been taken")
     end
   end
 
@@ -85,7 +88,7 @@ RSpec.describe "Tasks", type: :request do
       task = FactoryBot.create(:task, category: @category)
 
       expect {
-        delete "/categories/#{@category.id}/tasks/#{task.id}"
+        delete "/categories/#{@category.id}/tasks/#{task.id}", headers: { "Authorization" => "Bearer #{@token}" }
       }.to change { Task.count }.by(-1)
 
       expect(response).to have_http_status(204)
