@@ -1,0 +1,51 @@
+.auth {
+    margin-top: 5rem;
+}
+
+.auth_container {
+    padding: 0;
+    width: fit-content;
+}
+
+.form_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.auth_container, 
+.form_input, 
+.switch_grp {
+    color: white;
+    background-color: var(--color-bg-variant);
+}
+
+.switch_grp {
+    display: flex;
+    width: 100%;
+}
+
+.switch_btn {
+    background-color: orange;
+    flex: 1;
+}
+
+.form_body {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_body h3 {
+    text-align: center;
+}
+
+.form_input {
+    border: 1px solid white;
+}
+
+.form_input::placeholder {
+    padding: 0.5rem;
+}
+

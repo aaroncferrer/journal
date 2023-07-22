@@ -1,7 +1,7 @@
 require 'jwt_auth'
 
 class AuthController < ApplicationController
-    skip_before_action :check_auth
+  skip_before_action :check_auth
 
   def signup
     user = User.new(user_params)
