@@ -20,6 +20,7 @@
 	--color-orange-secondary: #c88261;
 	--color-white : #fff;
 	--color-light: rgba(255, 255, 255, 0.6);
+	--color-none: #9a7c6d;
 
 	--transition: all 0.3s ease;
 	--transition-opacity: opacity 0.3s ease;
