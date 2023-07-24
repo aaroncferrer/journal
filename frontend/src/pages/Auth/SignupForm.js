@@ -40,7 +40,8 @@ const SignupForm = () => {
                 password_confirmation: ''
             })
         }catch(error){
-            console.error('Signup Error', error.response.data)
+            console.error('Signup Error', error.response.data.errors[0]);
+            alert(`Signup Error: ${error.response.data.errors[0]}`);
         }
     }
 

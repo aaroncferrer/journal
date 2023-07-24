@@ -16,6 +16,7 @@
 :root {
 	--color-bg: #0e181b;
 	--color-bg-variant: #18272e;
+	--color-bg-light: #29424d;
 	--color-orange-primary: #fb5708;
 	--color-orange-secondary: #c88261;
 	--color-white : #fff;
@@ -44,10 +45,10 @@ html {
 } */
 
 body {
-	font-family: var(--font-primary);
-	background: var(--color-bg);
-	color: var(--color-white);
-	line-height: 1.7;
+	font-family: var(--font-primary) !important;
+	background-color: var(--color-bg-light) !important;
+	color: var(--color-white) !important;
+	line-height: 1.7 !important;
 	/* background-image: url('./assets/bg-texture.png'); */
 	min-height: 100%; /* OPTIONAL */
 }
