@@ -1,8 +1,10 @@
 .auth {
     margin-top: 5rem;
+    font-family: var(--font-secondary);
 }
 
 .auth_container {
+    border-radius: 0.25rem;
     padding: 0;
     width: fit-content;
 }
@@ -13,6 +15,7 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    width: 35rem;
 }
 
 .auth_container, 
@@ -28,24 +31,51 @@
 }
 
 .switch_btn {
-    background-color: orange;
     flex: 1;
+    padding: 1rem 0;
+    color: white;
+    background-color: var(--color-none);
+    transition: var(--transition);
+}
+
+.switch_btn.active {
+    background-color: var(--color-orange-primary); 
+}
+
+.switch_btn:hover, .form_btn:hover {
+    background-color: var(--color-orange-secondary);
 }
 
 .form_body {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .form_body h3 {
     text-align: center;
+    margin: 2rem 0;
+    font-size: 2.1rem;
 }
 
 .form_input {
+    width: 100%;
+    margin-bottom: 1.5rem;
     border: 1px solid white;
-}
-
-.form_input::placeholder {
     padding: 0.5rem;
 }
 
+.name_input {
+    display: flex;
+    gap: 1rem;
+}
+
+.form_btn {
+    width: 100%;
+    padding: 1.2rem 0;
+    background-color: var(--color-orange-primary);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
