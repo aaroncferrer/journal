@@ -1,7 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
+    const { setCurrentUser } = props;
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -23,16 +28,16 @@ const LoginForm = () => {
                     'Content-Type' : 'application/json'
                 }
             })
-            const data = response.data
-            const token = data.token;
-            localStorage.setItem('token', token);
+            const data = response.data;
+            setCurrentUser({...data.user, token: data.token})
             alert("Login Successful")
             setFormData({
                 email: '',
                 password: '',
             })
+            navigate('/categories');
         }catch (error){
-            console.error('Login Error', error.response.data);
+            alert(`Login Error: ${error.response.data.error}`);
         }
     }
 

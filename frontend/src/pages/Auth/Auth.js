@@ -3,7 +3,9 @@ import './auth.css'
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
-function Auth() {
+function Auth(props) {
+    const { setCurrentUser } = props;
+
     const [isLoginForm, setIsLoginForm] = useState(false);
 
     return(
@@ -22,7 +24,10 @@ function Auth() {
                             Log in
                             </button>
                     </div>
-                    {isLoginForm ? <LoginForm /> : <SignupForm />}
+                    {isLoginForm 
+                        ? <LoginForm setCurrentUser={setCurrentUser}/> 
+                        : <SignupForm />
+                    }
                 </div>
             </div>
         </main>
