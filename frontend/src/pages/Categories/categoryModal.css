@@ -1,0 +1,9 @@
+.category_modal {
+    color: var(--color-bg-variant);
+}
+
+.form_input {
+    background: transparent;
+    border: 1px solid var(--color-bg-variant);
+    color: var(--color-bg-variant);
+}
