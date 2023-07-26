@@ -32,11 +32,26 @@
 }
 
 .category:hover {
-    transform: scale(1.05);
+    transform: scale(1.07);
+}
+
+.cat_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cat_icons {
+    font-size: 1.3rem;
+    margin-left: 0.7rem;
+}
+
+.cat_name {
+    margin-bottom: 0;
 }
 
 .cat_desc {
-    margin: 0.5rem 0 1rem;
+    margin: 1rem 0;
 }
 
 .task_count {
