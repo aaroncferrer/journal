@@ -50,7 +50,7 @@ body {
 	color: var(--color-white) !important;
 	line-height: 1.7 !important;
 	/* background-image: url('./assets/bg-texture.png'); */
-	min-height: 100%; /* OPTIONAL */
+	min-height: 100%; 
 }
 
 /* GENERAL STYLES */
@@ -84,35 +84,33 @@ a:hover {
 }
 
 .btns {
-	padding: 0.60rem 1rem;
+	padding: 0.35rem 1rem;
 	border-radius: 0.5em;
 	width: max-content;
 	display: inline-block;
 	transition: var(--transition);
 	font-size: 0.85rem;
 	letter-spacing: 0;
-	-webkit-box-shadow: 6px 9px 15px 3px rgba(0,0,0,0.45); 
-	box-shadow: 6px 9px 15px 3px rgba(0,0,0,0.45);
 }
 
-.btn-primary {
+.btn_primary {
 	color: var(--color-orange-primary);
 	border: 1px solid var(--color-orange-primary);
+	background-color: transparent;
 }
 
-.btn-primary:hover {
-	/* background: rgba(251, 87, 8, 0.15); */
+.btn_primary:hover {
 	background-color: var(--color-orange-primary);
 	color: var(--color-white);
 }
 
-.btn-secondary {
+.btn_secondary {
   	background: var(--color-orange-primary);
 	color: var(--color-white);
 	border: 1px solid var(--color-orange-primary);
 }
 
-.btn-secondary:hover {
+.btn_secondary:hover {
 	background: transparent;
 	color: var(--color-orange-primary);
 }

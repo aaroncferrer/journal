@@ -1,0 +1,50 @@
+.container h1 {
+    font-family: var(--font-text);
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.btn_grp {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.categories_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.category {
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    color: var(--color-bg-light);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+    filter: drop-shadow(0px 5px 10px #313131);
+}
+
+.category:hover {
+    transform: scale(1.05);
+}
+
+.cat_desc {
+    margin: 0.5rem 0 1rem;
+}
+
+.task_count {
+    margin: auto 0 0;
+    background-color: var(--color-orange-secondary);
+    width: fit-content;
+    color: white;
+    font-size: 0.8rem;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem;
+}
