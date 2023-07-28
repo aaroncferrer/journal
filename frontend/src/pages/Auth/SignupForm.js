@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 
-const SignupForm = () => {
+const SignupForm = (props) => {
+    const { apiBaseUrl, Toast } = props;
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -21,7 +22,7 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.post('http://localhost:3000/signup', 
+            const response = await axios.post(`${apiBaseUrl}/signup`, 
                 {
                     user: formData
                 }, 
@@ -31,7 +32,10 @@ const SignupForm = () => {
                     },
                 });
             const data =  response.data;
-            alert(`${data.first_name} has been successfully registered!`)
+            Toast.fire({
+            icon: 'success',
+            title: `${data.first_name} has been successfully registered!`
+            })
             setFormData({
                 first_name: '',
                 last_name: '',
@@ -40,7 +44,10 @@ const SignupForm = () => {
                 password_confirmation: ''
             })
         }catch(error){
-            alert(`Signup Error: ${error.response.data.errors[0]}`);
+            Toast.fire({
+            icon: 'error',
+            title: `Signup Error: ${error.response.data.errors[0]}`
+            })
         }
     }
 

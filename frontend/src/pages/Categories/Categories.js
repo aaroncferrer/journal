@@ -9,7 +9,7 @@ import CategoryForm from "./CategoryForm";
 function Categories(props) {
     const navigate = useNavigate();
 
-    const { currentUser, setCurrentUser } = props;
+    const { currentUser, setCurrentUser, apiBaseUrl, Toast } = props;
 
     const [categories, setCategories] = useState([]);
     const [show, setShow] = useState(false);
@@ -24,7 +24,7 @@ function Categories(props) {
         const fetchCategories = async () => {
             try {
                 const token = currentUser.token; 
-                const response = await axios.get('http://localhost:3000/categories', {
+                const response = await axios.get(`${apiBaseUrl}/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -35,7 +35,7 @@ function Categories(props) {
             }
         }
         fetchCategories();
-    }, [currentUser.token]);
+    }, [currentUser.token, apiBaseUrl]);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -49,13 +49,16 @@ function Categories(props) {
         e.preventDefault();
 
         if (!formData.name || !formData.description) {
-            alert("All fields are required.");
+            Toast.fire({
+                icon: 'error',
+                title: "All fields are required."
+            })
             return;
         }
 
         try{    
             const token = currentUser.token;
-            const response = await axios.post('http://localhost:3000/categories', 
+            const response = await axios.post(`${apiBaseUrl}/categories`, 
             {
                 category: formData
             },
@@ -71,7 +74,10 @@ function Categories(props) {
             })
             setShow(false);
         }catch(error){
-            alert(`Error: ${error.response.data.errors[0]}`);
+            Toast.fire({
+                icon: 'error',
+                title: `Error: ${error.response.data.errors[0]}`
+            })
         }
     }
 
@@ -89,13 +95,16 @@ function Categories(props) {
         e.preventDefault();
 
         if (!formData.name || !formData.description) {
-            alert("All fields are required.");
+            Toast.fire({
+                icon: 'error',
+                title: "All fields are required."
+            })
             return;
         }
 
         try{
             const token = currentUser.token;
-            await axios.patch(`http://localhost:3000/categories/${editCategoryId}`,
+            await axios.patch(`${apiBaseUrl}/categories/${editCategoryId}`,
             {
                 category: formData,
             }, 
@@ -118,21 +127,27 @@ function Categories(props) {
             setShow(false);
             setIsEditing(false);
         }catch (error){
-            alert(`Error: ${error.response.data.errors[0]}`);
+            Toast.fire({
+                icon: 'error',
+                title: `Error: ${error.response.data.errors[0]}`
+            })
         }
     }
 
     const deleteCategory = async (categoryId) => {
         try{
             const token = currentUser.token;
-            await axios.delete(`http://localhost:3000/categories/${categoryId}`, 
+            await axios.delete(`${apiBaseUrl}/categories/${categoryId}`, 
             {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
             setCategories((prevCategories) => prevCategories.filter((category) => category.id !== categoryId))
-            console.log("Successfully Deleted!");
+            Toast.fire({
+                icon: 'success',
+                title: "Successfully deleted."
+            })
         }catch(error){
             console.error(error.response.data);
         }
@@ -171,7 +186,7 @@ function Categories(props) {
                 </div>
                 <div className="categories_grid">
                     {categories.map((category) => (
-                    <div onClick={()=> navigate(`/categories/${category.id}/tasks`)} key={category.id} className="category">
+                    <div key={category.id} className="category">
                         <div className="cat_header">
                             <h4 className="cat_name">{category.name}</h4>
                             <div className="cat_icons_container">
@@ -185,7 +200,12 @@ function Categories(props) {
                                 />
                             </div>
                         </div>
-                        <p className="cat_desc">{category.description}</p>
+                        <p 
+                            className="cat_desc"
+                            onClick={()=> navigate(`/categories/${category.id}/tasks`)}
+                        >
+                        {category.description}
+                        </p>
                         <p className="task_count">
                             {category.task_count === 0 ? "NO TASKS" : category.task_count === 1 ? "1 TASK" : `${category.task_count} TASKS`} 
                         </p>
