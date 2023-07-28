@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BiSolidEditAlt } from 'react-icons/bi'
 import { AiFillDelete } from 'react-icons/ai'
 import './categories.css'
-import CategoryModal from "./CategoryModal";
+import CategoryForm from "./CategoryForm";
 
 function Categories(props) {
     const navigate = useNavigate();
@@ -146,7 +146,7 @@ function Categories(props) {
     return(
         <main className="categories">
             {/* MODAL */}
-            <CategoryModal 
+            <CategoryForm 
                 show={show}
                 setShow={setShow}
                 setFormData={setFormData}

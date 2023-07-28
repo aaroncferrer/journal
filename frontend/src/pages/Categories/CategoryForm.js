@@ -1,8 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import './categoryModal.css'
+import './categoryForm.css'
 
-function CategoryModal(props) {
+function CategoryForm(props) {
     const { show, setShow, formData, setFormData, handleChange, addCategory, isEditing, setIsEditing, editCategory } = props;
 
     const handleSubmit = (e) => {
@@ -30,24 +30,24 @@ function CategoryModal(props) {
                 <Modal.Title>{isEditing ? 'Edit Category' : 'Add Category'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                    <input
-                        className='category_input' 
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="Category Name"
-                    />
-                    <input
-                        className='category_input' 
-                        type="text"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        required
-                        placeholder="Category Description"
-                    />
+                <input
+                    className='category_input' 
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Category Name"
+                />
+                <input
+                    className='category_input' 
+                    type="text"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                    placeholder="Category Description"
+                />
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => setShow(false)}>
@@ -62,4 +62,4 @@ function CategoryModal(props) {
     )
 }
 
-export default CategoryModal;
+export default CategoryForm;

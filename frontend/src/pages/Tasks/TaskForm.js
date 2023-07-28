@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import './taskModal.css'
 
-function TaskModal(props) {
+function TaskForm(props) {
     const { show, setShow, formData, setFormData, handleChange, addTask, isEditing, setIsEditing, editTask } = props;
 
     const handleSubmit = (e) => {
@@ -30,32 +30,33 @@ function TaskModal(props) {
                 <Modal.Title>{isEditing ? 'Edit Task' : 'Add Task'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                    <input
-                        className='task_input' 
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="Task Name"
-                    />
-                    <input
-                        className='task_input' 
-                        type="text"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        required
-                        placeholder="Task Description"
-                    />
-                    <input
-                        className='task_input' 
-                        type="date"
-                        name="deadline"
-                        value={formData.deadline}
-                        onChange={handleChange}
-                        placeholder="Task Deadline"
-                    />
+                <input
+                    className='task_input' 
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Task Name"
+                />
+                <textarea
+                    rows={4}
+                    className='task_input' 
+                    type="text"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                    placeholder="Task Description"
+                />
+                <input
+                    className='task_input' 
+                    type="date"
+                    name="deadline"
+                    value={formData.deadline}
+                    onChange={handleChange}
+                    placeholder="Task Deadline"
+                />
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => setShow(false)}>
@@ -70,4 +71,4 @@ function TaskModal(props) {
     )
 }
 
-export default TaskModal;
+export default TaskForm;
