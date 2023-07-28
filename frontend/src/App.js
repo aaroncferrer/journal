@@ -14,7 +14,7 @@ import Footer from './components/Footer/Footer';
 
 function App() {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) || null);
-    const apiBaseUrl = 'https://journal-service-zppm.onrender.com';
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
