@@ -20,7 +20,7 @@
 	--color-orange-primary: #fb5708;
 	--color-orange-secondary: #c88261;
 	--color-white : #fff;
-	--color-light: rgba(255, 255, 255, 0.6);
+	--color-light: rgba(255, 255, 255, 0.8);
 	--color-none: #9a7c6d;
 
 	--transition: all 0.3s ease;
@@ -28,7 +28,7 @@
 
 	--container-width-lg: 75%;
 	--container-width-md: 80%;
-	--container-widtth-sm: 90%;
+	--container-width-sm: 90%;
 
 	--font-primary: 'Proxima Nova', sans-serif;
 	--font-text: 'Montserrat', sans-serif;
@@ -134,6 +134,6 @@ img {
 /* MEDIA QUERIES FOR TABLETS (SMALL DEVICES) */
 @media screen and (max-width: 600px){
 	.container {
-		width: var(--container-widtth-sm);
+		width: var(--container-width-sm);
 	}
 }

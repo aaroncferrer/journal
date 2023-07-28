@@ -44,6 +44,11 @@
 .cat_icons {
     font-size: 1.3rem;
     margin-left: 0.7rem;
+    transition: var(--transition);
+}
+
+.cat_icons:hover {
+    transform: translateY(-0.5rem);
 }
 
 .cat_name {

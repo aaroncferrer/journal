@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // File Imports
 import Auth from './pages/Auth/Auth';
 import Categories from './pages/Categories/Categories';
+import Tasks from './pages/Tasks/Tasks';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Routes>
                 <Route exact path='/' element={<Auth setCurrentUser={setCurrentUser}/>} />
                 <Route exact path='/categories' element={<Categories currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+                <Route exact path='/categories/:categoryId/tasks' element={<Tasks currentUser={currentUser} />} />
             </Routes>
         </Router>
     )
