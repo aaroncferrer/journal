@@ -46,7 +46,7 @@ html {
 
 body {
 	font-family: var(--font-primary) !important;
-	background-color: var(--color-bg-light) !important;
+	background-color: var(--color-bg-variant) !important;
 	color: var(--color-white) !important;
 	line-height: 1.7 !important;
 	/* background-image: url('./assets/bg-texture.png'); */

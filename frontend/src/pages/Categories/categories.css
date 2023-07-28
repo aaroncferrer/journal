@@ -19,7 +19,7 @@
 
 .category {
     padding: 1rem;
-    background-color: white;
+    background-color: var(--color-light);
     border-radius: 0.5rem;
     color: var(--color-bg-light);
     display: flex;

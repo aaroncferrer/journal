@@ -1,6 +1,7 @@
 .tasks_container {
     width: 60%;
     padding-top: 4rem;
+    font-family: var(--font-text);
 }
 
 .tasks_list {
@@ -12,12 +13,29 @@
     gap: 1rem;
     border-radius: 0.4rem;
     filter: drop-shadow(0px 5px 10px #313131);
+    margin-bottom: 1.3rem;
+}
+
+.tasks_list > h2 {
+    text-align: center;
+    font-size: 2.4rem;
 }
 
 .tasks_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.filter_container {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.filter {
+    width: 10rem;
+    border-radius: 1rem;
+    padding: 0 0.5rem;
 }
 
 .task {
@@ -28,10 +46,16 @@
 
 .task_content {
     width: 85%;
-    background-color: var(--color-bg-variant);
+    background-color: var(--color-bg-light);
     color: var(--color-light);
     border-radius: 2rem;
     padding: 0.3rem 1rem;
+    cursor: pointer;
+}
+
+.task_content:hover {
+    outline: 2px solid var(--color-bg-variant);
+    outline-offset: 0.2rem;
 }
 
 .done {
@@ -39,12 +63,12 @@
 }
 
 .task_name {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .task_due {
     margin: -1.4rem 0 0;
-    font-size: 0.7rem;
+    font-size: 0.55rem;
     font-style: italic;
 }
 
@@ -59,6 +83,11 @@
     border-radius: 50%;
     color: var(--color-light);
     font-size: 2.2rem;
+    transition: var(--transition);
+}
+
+.task_icons:hover {
+    transform: translateY(-0.7rem);
 }
 
 .task_done {
@@ -69,4 +98,9 @@
 }
 .task_delete {
     background-color: rgb(105, 7, 7);
+}
+
+/* TASK VIEW MODAL */
+.task_view {
+    color: var(--color-bg-variant);
 }
