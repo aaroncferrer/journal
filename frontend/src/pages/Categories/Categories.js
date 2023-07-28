@@ -13,6 +13,8 @@ function Categories(props) {
 
     const [categories, setCategories] = useState([]);
     const [show, setShow] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editCategoryId, setEditCategoryId] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         description: ''
@@ -73,6 +75,53 @@ function Categories(props) {
         }
     }
 
+    const handleEditCategory = (category) => {
+        setIsEditing(true);
+        setEditCategoryId(category.id);
+        setFormData({
+            name: category.name,
+            description: category.description
+        })
+        setShow(true);
+    };
+
+    const editCategory = async (e) => {
+        e.preventDefault();
+
+        if (!formData.name || !formData.description) {
+            alert("All fields are required.");
+            return;
+        }
+
+        try{
+            const token = currentUser.token;
+            await axios.patch(`http://localhost:3000/categories/${editCategoryId}`,
+            {
+                category: formData,
+            }, 
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            setCategories((prevCategories) =>
+                prevCategories.map((category) =>
+                    category.id === editCategoryId ? { ...category, ...formData } : category
+                )
+            );
+
+            setFormData({
+                name: "",
+                description: "",
+            });
+            setShow(false);
+            setIsEditing(false);
+        }catch (error){
+            alert(`Error: ${error.response.data.errors[0]}`);
+        }
+    }
+
     const deleteCategory = async (categoryId) => {
         try{
             const token = currentUser.token;
@@ -99,9 +148,13 @@ function Categories(props) {
             <CategoryModal 
                 show={show}
                 setShow={setShow}
+                setFormData={setFormData}
                 formData={formData}
                 handleChange={handleChange}
                 addCategory={addCategory}
+                editCategory={editCategory}
+                setIsEditing={setIsEditing}
+                isEditing={isEditing}
             />
 
             <div className="container categories_container">
@@ -121,8 +174,14 @@ function Categories(props) {
                         <div className="cat_header">
                             <h4 className="cat_name">{category.name}</h4>
                             <div className="cat_icons_container">
-                                <BiSolidEditAlt className="cat_icons"/>
-                                <AiFillDelete className="cat_icons" onClick={() => deleteCategory(category.id)}/>
+                                <BiSolidEditAlt 
+                                    className="cat_icons"
+                                    onClick={() => handleEditCategory(category)}
+                                />
+                                <AiFillDelete 
+                                    className="cat_icons" 
+                                    onClick={() => deleteCategory(category.id)}
+                                />
                             </div>
                         </div>
                         <p className="cat_desc">{category.description}</p>

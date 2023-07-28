@@ -3,17 +3,35 @@ import Modal from 'react-bootstrap/Modal';
 import './categoryModal.css'
 
 function CategoryModal(props) {
-    const { show, setShow, formData, handleChange, addCategory } = props;
+    const { show, setShow, formData, setFormData, handleChange, addCategory, isEditing, setIsEditing, editCategory } = props;
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(isEditing){
+            editCategory(e);
+        }else {
+            addCategory(e);
+        }
+    }
+
+    const handleClose = () => {
+        setShow(false);
+        setIsEditing(false);
+        setFormData({
+                name: "",
+                description: "",
+        });
+    }
 
     return(
-        <Modal show={show} onHide={() => setShow(false)} centered className='category_modal'>
-            <form onSubmit={addCategory}>
+        <Modal show={show} onHide={handleClose} centered className='category_modal'>
+            <form onSubmit={handleSubmit}>
             <Modal.Header closeButton>
-                <Modal.Title>Add Category</Modal.Title>
+                <Modal.Title>{isEditing ? 'Edit Category' : 'Add Category'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                     <input
-                        className='form_input' 
+                        className='category_input' 
                         type="text"
                         name="name"
                         value={formData.name}
@@ -22,7 +40,7 @@ function CategoryModal(props) {
                         placeholder="Category Name"
                     />
                     <input
-                        className='form_input' 
+                        className='category_input' 
                         type="text"
                         name="description"
                         value={formData.description}
@@ -35,8 +53,8 @@ function CategoryModal(props) {
                 <Button variant="secondary" onClick={() => setShow(false)}>
                     Close
                 </Button>
-                <Button type='submit' variant="primary" onClick={(e) => addCategory(e)}>
-                    Add
+                <Button type='submit' variant="primary">
+                    {isEditing ? 'Save Changes' : 'Add'}
                 </Button>
             </Modal.Footer>
             </form>
