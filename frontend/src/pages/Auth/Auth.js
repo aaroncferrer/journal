@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
 function Auth(props) {
-    const { setCurrentUser } = props;
+    const { setCurrentUser, apiBaseUrl, Toast } = props;
 
     const [isLoginForm, setIsLoginForm] = useState(false);
 
@@ -25,8 +25,8 @@ function Auth(props) {
                             </button>
                     </div>
                     {isLoginForm 
-                        ? <LoginForm setCurrentUser={setCurrentUser}/> 
-                        : <SignupForm />
+                        ? <LoginForm setCurrentUser={setCurrentUser} apiBaseUrl={apiBaseUrl} Toast={Toast} /> 
+                        : <SignupForm apiBaseUrl={apiBaseUrl} Toast={Toast} />
                     }
                 </div>
             </div>

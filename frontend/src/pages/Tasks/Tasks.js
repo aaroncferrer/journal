@@ -8,7 +8,8 @@ import axios from 'axios'
 import TaskForm from './TaskForm'
 import TaskView from './TaskView'
 
-function Tasks({currentUser}) {
+function Tasks(props) {
+    const { apiBaseUrl, currentUser, Toast } = props;
     const navigate = useNavigate();
     const { categoryId } = useParams();
     
@@ -55,7 +56,7 @@ function Tasks({currentUser}) {
         const fetchTasks = async () => {
             try {
                 const token = currentUser.token
-                const response = await axios.get(`http://localhost:3000/categories/${categoryId}/tasks`, {
+                const response = await axios.get(`${apiBaseUrl}/categories/${categoryId}/tasks`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -73,7 +74,7 @@ function Tasks({currentUser}) {
             }
         }
         fetchTasks();
-    }, [currentUser.token, categoryId, sortTasks]);
+    }, [currentUser.token, categoryId, sortTasks, apiBaseUrl]);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -87,7 +88,10 @@ function Tasks({currentUser}) {
         e.preventDefault();
 
         if (!formData.name || !formData.description) {
-            alert("Name & Description is required.");
+            Toast.fire({
+                icon: 'error',
+                title: "Name & Description is required."
+            })
             return;
         }
 
@@ -97,14 +101,17 @@ function Tasks({currentUser}) {
             today.setHours(0, 0, 0, 0);
 
             if (selectedDate < today) {
-                alert("Deadline cannot be in the past.");
+                Toast.fire({
+                    icon: 'error',
+                    title: "Deadline cannot be in the past"
+                })
                 return;
             }
         }
 
         try{    
             const token = currentUser.token;
-            const response = await axios.post(`http://localhost:3000/categories/${categoryId}/tasks`, 
+            const response = await axios.post(`${apiBaseUrl}/categories/${categoryId}/tasks`, 
             {
                 task: formData
             },
@@ -128,7 +135,10 @@ function Tasks({currentUser}) {
             })
             setShow(false);
         }catch(error){
-            alert(`Error: ${error.response.data.error}`);
+            Toast.fire({
+                icon: 'error',
+                title: `Error: ${error.response.data.error}`
+            })
         }
     }
 
@@ -147,7 +157,10 @@ function Tasks({currentUser}) {
         e.preventDefault();
 
         if (!formData.name || !formData.description) {
-            alert("Name & Description is required.");
+            Toast.fire({
+                icon: 'error',
+                title: "Name & Description is required."
+            })
             return;
         }
 
@@ -157,14 +170,17 @@ function Tasks({currentUser}) {
             today.setHours(0, 0, 0, 0); 
 
             if (selectedDate < today) {
-                alert("Deadline cannot be in the past.");
+                Toast.fire({
+                    icon: 'error',
+                    title: "Deadline cannot be in the past"
+                })
                 return;
             }
         }
 
         try{
             const token = currentUser.token;
-            await axios.patch(`http://localhost:3000/categories/${categoryId}/tasks/${editTaskId}`,
+            await axios.patch(`${apiBaseUrl}/categories/${categoryId}/tasks/${editTaskId}`,
             {
                 task: formData,
             }, 
@@ -186,14 +202,17 @@ function Tasks({currentUser}) {
             setShow(false);
             setIsEditing(false);
         }catch (error){
-            alert(`Error: ${error.response.data.errors[0]}`);
+            Toast.fire({
+                icon: 'error',
+                title: `Error: ${error.response.data.errors[0]}`
+            })
         }
     }
 
     const deleteTask = async (taskId) => {
         try{
             const token = currentUser.token;
-            await axios.delete(`http://localhost:3000/categories/${categoryId}/tasks/${taskId}`, 
+            await axios.delete(`${apiBaseUrl}/categories/${categoryId}/tasks/${taskId}`, 
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -210,7 +229,7 @@ function Tasks({currentUser}) {
         try {
             const token = currentUser.token;
             const updatedTask = { ...task, done: !task.done };
-            await axios.patch(`http://localhost:3000/categories/${categoryId}/tasks/${task.id}`, 
+            await axios.patch(`${apiBaseUrl}/categories/${categoryId}/tasks/${task.id}`, 
             {
                 task: updatedTask 
             }, 
@@ -244,6 +263,7 @@ function Tasks({currentUser}) {
 
             {selectedTask && (
                 <TaskView
+                    apiBaseUrl={apiBaseUrl}
                     currentUser={currentUser}
                     show={selectedTask !== null}
                     setShow={setSelectedTask}
@@ -278,12 +298,11 @@ function Tasks({currentUser}) {
                         </div>
                     </div>
                     {sortTasks(tasks).map((task) => (
-                    <div 
-                        key={task.id} 
-                        className="task"
-                        onClick={() => setSelectedTask(task)}
-                    >
-                        <div className={`task_content ${task.done ? "done" : ""}`}>
+                    <div key={task.id} className="task">
+                        <div 
+                            className={`task_content ${task.done ? "done" : ""}`}
+                            onClick={() => setSelectedTask(task)}
+                        >
                             <p className='task_name'>{task.name}</p>
                             <p className='task_due'>DUE DATE: {task.deadline}</p>
                         </div>

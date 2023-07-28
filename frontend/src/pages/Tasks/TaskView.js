@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function TaskView(props) {
-    const { currentUser, show, setShow, task } = props;
+    const { apiBaseUrl, currentUser, show, setShow, task } = props;
 
     const [taskDetails, setTaskDetails] = useState(null);
 
@@ -16,7 +16,7 @@ function TaskView(props) {
         const fetchTaskDetails = async () => {
             try {
                 const token = currentUser.token;
-                const response = await axios.get(`http://localhost:3000/categories/${task.category_id}/tasks/${task.id}`, 
+                const response = await axios.get(`${apiBaseUrl}/categories/${task.category_id}/tasks/${task.id}`, 
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -36,7 +36,7 @@ function TaskView(props) {
         if(show){
             fetchTaskDetails();
         }
-    }, [currentUser.token, task.category_id, task.id, show])
+    }, [currentUser.token, task.category_id, task.id, show, apiBaseUrl])
     
     return(
          <Modal show={show} onHide={handleClose} className='task_view'>
