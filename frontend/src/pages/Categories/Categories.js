@@ -125,7 +125,8 @@ function Categories(props) {
     const deleteCategory = async (categoryId) => {
         try{
             const token = currentUser.token;
-            await axios.delete(`http://localhost:3000/categories/${categoryId}`, {
+            await axios.delete(`http://localhost:3000/categories/${categoryId}`, 
+            {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -170,7 +171,7 @@ function Categories(props) {
                 </div>
                 <div className="categories_grid">
                     {categories.map((category) => (
-                    <div key={category.id} className="category">
+                    <div onClick={()=> navigate(`/categories/${category.id}/tasks`)} key={category.id} className="category">
                         <div className="cat_header">
                             <h4 className="cat_name">{category.name}</h4>
                             <div className="cat_icons_container">

@@ -1,16 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import './categoryModal.css'
+import './taskModal.css'
 
-function CategoryModal(props) {
-    const { show, setShow, formData, setFormData, handleChange, addCategory, isEditing, setIsEditing, editCategory } = props;
+function TaskModal(props) {
+    const { show, setShow, formData, setFormData, handleChange, addTask, isEditing, setIsEditing, editTask } = props;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(isEditing){
-            editCategory(e);
+            editTask(e);
         }else {
-            addCategory(e);
+            addTask(e);
         }
     }
 
@@ -19,34 +19,42 @@ function CategoryModal(props) {
         setIsEditing(false);
         setFormData({
                 name: "",
-                description: ""
+                description: "",
         });
     }
 
     return(
-        <Modal show={show} onHide={handleClose} centered className='category_modal'>
+        <Modal show={show} onHide={handleClose} className='task_modal'>
             <form onSubmit={handleSubmit}>
             <Modal.Header closeButton>
-                <Modal.Title>{isEditing ? 'Edit Category' : 'Add Category'}</Modal.Title>
+                <Modal.Title>{isEditing ? 'Edit Task' : 'Add Task'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                     <input
-                        className='category_input' 
+                        className='task_input' 
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        placeholder="Category Name"
+                        placeholder="Task Name"
                     />
                     <input
-                        className='category_input' 
+                        className='task_input' 
                         type="text"
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
                         required
-                        placeholder="Category Description"
+                        placeholder="Task Description"
+                    />
+                    <input
+                        className='task_input' 
+                        type="date"
+                        name="deadline"
+                        value={formData.deadline}
+                        onChange={handleChange}
+                        placeholder="Task Deadline"
                     />
             </Modal.Body>
             <Modal.Footer>
@@ -62,4 +70,4 @@ function CategoryModal(props) {
     )
 }
 
-export default CategoryModal;
+export default TaskModal;
