@@ -34,9 +34,22 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route exact path='/' element={<Auth setCurrentUser={setCurrentUser} apiBaseUrl={apiBaseUrl} Toast={Toast} />} />
-                <Route exact path='/categories' element={<Categories currentUser={currentUser} setCurrentUser={setCurrentUser} apiBaseUrl={apiBaseUrl} Toast={Toast} />} />
-                <Route exact path='/categories/:categoryId/tasks' element={<Tasks currentUser={currentUser} apiBaseUrl={apiBaseUrl} Toast={Toast} />} />
+                <Route exact path='/' element={<Auth 
+                    setCurrentUser={setCurrentUser} 
+                    apiBaseUrl={apiBaseUrl} 
+                    Toast={Toast} />} 
+                />
+                <Route exact path='/categories' element={<Categories 
+                    currentUser={currentUser} 
+                    setCurrentUser={setCurrentUser} 
+                    apiBaseUrl={apiBaseUrl} 
+                    Toast={Toast} />} 
+                />
+                <Route exact path='/categories/:categoryId/tasks' element={<Tasks 
+                    currentUser={currentUser} 
+                    apiBaseUrl={apiBaseUrl} 
+                    Toast={Toast} />} 
+                />
             </Routes>
             <Footer />
         </Router>

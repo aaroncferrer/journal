@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = (props) => {
-    const { setCurrentUser, apiBaseUrl, Toast } = props;
+    const { setCurrentUser, apiBaseUrl, Toast, setLoading } = props;
 
     const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ const LoginForm = (props) => {
     };
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
         try{
             const response = await axios.post(`${apiBaseUrl}/login`, formData, {
@@ -35,16 +36,17 @@ const LoginForm = (props) => {
             icon: 'success',
             title: 'Signed in successfully'
             })
-
+            setLoading(false);
             setFormData({
                 email: '',
                 password: '',
             })
             navigate('/categories');
         }catch (error){
+            setLoading(false);
             Toast.fire({
-            icon: 'error',
-            title: `Login Error: ${error.response.data.error}`
+                icon: 'error',
+                title: `Login Error: ${error.response.data.error}`
             })
         }
     }
