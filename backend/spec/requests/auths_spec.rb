@@ -52,7 +52,7 @@ RSpec.describe "Auths", type: :request do
       expect(response.body).to include("token")
     end
 
-    it "returns an error on successful login" do
+    it "returns an error on failed login" do
       login_params = {
         email: "test@example.com",
         password: "wrong_password"
