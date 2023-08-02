@@ -53,6 +53,11 @@
     cursor: pointer;
 }
 
+.warning {
+    color: rgb(182, 174, 27);
+    margin-left: 0.5rem;
+}
+
 .task_content:hover {
     outline: 2px solid var(--color-bg-variant);
     outline-offset: 0.2rem;
