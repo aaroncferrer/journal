@@ -1,6 +1,6 @@
 import './tasks.css'
 import { BiSolidEditAlt } from 'react-icons/bi'
-import { AiFillDelete } from 'react-icons/ai'
+import { AiFillDelete, AiFillWarning } from 'react-icons/ai'
 import { BsCheck2All } from 'react-icons/bs'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCallback, useEffect, useState } from 'react'
@@ -303,7 +303,11 @@ function Tasks(props) {
                             className={`task_content ${task.done ? "done" : ""}`}
                             onClick={() => setSelectedTask(task)}
                         >
-                            <p className='task_name'>{task.name}</p>
+                            <p className='task_name'>
+                                {task.name}
+                                {(!task.done && task.deadline && new Date(task.deadline) < new Date()) && <AiFillWarning className='warning'/>}
+                            </p>
+                            
                             <p className='task_due'>DUE DATE: {task.deadline}</p>
                         </div>
                         <div className="task_actions">
